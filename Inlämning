@@ -1,0 +1,26 @@
+-- All information about customers in the "customers" table
+SELECT * FROM customers;
+
+-- The last name of all customers in the "customers" table, listed in alphabetical order
+SELECT contactLastName FROM customers
+ORDER BY contactLastName;
+
+-- All employees who are "Sales Rep" and work at office number one, i.e., office codes = 1
+SELECT * FROM employees
+WHERE jobTitle = 'Sales Rep' AND officeCode = '1';
+
+-- All employees who are not "Sales Rep"
+SELECT * FROM employees
+WHERE jobTitle != 'Sales Rep';
+
+-- All customers and their orders; customers who have not ordered anything should not be listed
+SELECT c.*, o.*
+FROM customers c
+JOIN orders o ON c.customerNumber = o.customerNumber;
+
+-- All employees who do not have customers
+SELECT * FROM employees e
+WHERE NOT EXISTS (
+    SELECT * FROM customers c
+    WHERE c.salesRepEmployeeNumber = e.employeeNumber
+);
